@@ -1,15 +1,46 @@
 package states;
 
-public interface State {
+public class State implements StateInterface {
 
-    public void onCreate();
-    public void onEnter();
-    public void onLeave();
-    public void onDestroy();
+    private String stateName = "Default state";
 
-    public void input();
-    public void render();
-    public void sound();
-    public void update();
+    protected void onCreate() {
 
+    }
+
+    protected void onEnter() {
+
+    }
+
+    protected void onLeave() {
+
+    }
+
+    protected void onDestroy() {
+
+    }
+
+    public  String getStateName() {
+        return this.stateName;
+    }
+
+    @Override
+    public void input() {
+
+    }
+
+    @Override
+    public void render() {
+
+    }
+
+    @Override
+    public void sound() {
+
+    }
+
+    @Override
+    public void update() {
+
+    }
 }
