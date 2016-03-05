@@ -14,4 +14,8 @@ public class Game {
         String sName = startScreen.getStateName();
         stateController.addState(sName, startScreen);
     }
+
+    public void reset() {
+
+    }
 }
