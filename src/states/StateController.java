@@ -49,4 +49,11 @@ public class StateController {
         currentState.onEnter();
     }
 
+    public State getCurrentState() {
+        return currentState;
+    }
+
+    public void setCurrentState(State currentState) {
+        this.currentState = currentState;
+    }
 }

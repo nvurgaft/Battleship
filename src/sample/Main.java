@@ -5,13 +5,13 @@ import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.util.Optional;
@@ -72,22 +72,39 @@ public class Main extends Application {
         BorderPane layout = new BorderPane();
         layout.setTop(topContainer);
 
-
         Canvas canvas = new Canvas(WIDTH, HEIGHT);
         GraphicsContext gc = canvas.getGraphicsContext2D();
         draw(gc);
 
-        Scene scene = new Scene(layout, WIDTH, HEIGHT);
+        GameScene gameScene = new GameScene(layout, WIDTH, HEIGHT);
 
         Group rootGroup = new Group();
         rootGroup.getChildren().addAll(canvas);
         layout.setCenter(rootGroup);
-        stage.setScene(scene);
+        stage.setScene(gameScene);
+        gameScene.start();
         stage.show();
     }
 
         protected void draw(GraphicsContext gc) {
-            gc.setFill(Color.AQUAMARINE);
+            gc.setFill(Color.ALICEBLUE);
             gc.fillRect(0, 0, WIDTH, HEIGHT);
+
+            gc.setStroke(Color.BLACK);
+            gc.setLineWidth(1.0);
+            for (int i=0; i<=10; i++) {
+                for (int j=0; j<=10; j++) {
+                    gc.strokeLine(40 + i*40, 40, 40 + i*40, 440);
+                    gc.strokeLine(40, 40 + i*40, 440, 40 + i*40);
+                }
+            }
+
+            gc.setFont(Font.font("Courier", 14));
+            for (int i=0; i<10; i++) {
+                for (int j=0; j<10; j++) {
+                    gc.strokeText("A", 25, 20+(i+1)*40);
+                    gc.strokeText("1", 20+(i+1)*40, 25);
+                }
+            }
         }
 }
