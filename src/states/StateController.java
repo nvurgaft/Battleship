@@ -1,5 +1,7 @@
 package states;
 
+import javafx.scene.Group;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -9,10 +11,16 @@ public class StateController {
     public Logger logger = Logger.getLogger(StateController.class.getName());
 
     private Map<String, State> stateMap;
+    private Group group;
     private State currentState;
 
-    public StateController() {
+    public StateController(Group group) {
         stateMap = new HashMap<>();
+        this.group = group;
+        currentState = new StartScreen();
+
+        currentState.onCreate(group);
+        this.stateMap.put(currentState.getStateName(), currentState);
     }
 
     public void addState(String name, State state) {
@@ -26,7 +34,7 @@ public class StateController {
             return;
         }
 
-        state.onCreate();
+        state.onCreate(this.group);
         this.stateMap.put(name, state);
     }
 

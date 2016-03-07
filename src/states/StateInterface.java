@@ -4,7 +4,7 @@ public interface StateInterface {
 
     void input();
 
-    void render();
+    void render(Object graphic);
 
     void sound();
 

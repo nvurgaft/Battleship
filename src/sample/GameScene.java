@@ -2,20 +2,41 @@ package sample;
 
 import javafx.animation.AnimationTimer;
 import javafx.beans.NamedArg;
+import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
+import javafx.scene.layout.BorderPane;
 import states.State;
 import states.StateController;
+
+import java.util.logging.Logger;
 
 
 public class GameScene extends Scene {
 
+    public static Logger logger = Logger.getLogger(GameScene.class.getName());
+
     private StateController stateController;
     private State currentState;
+    private Group uiGroup;
+    private GraphicsContext gc;
+    private Canvas canvas;
 
     public GameScene(@NamedArg("root") Parent root, int width, int height) {
         super(root, width, height);
-        stateController = new StateController();
+
+        // stick the canvas to the scene layout
+        uiGroup = new Group();
+        canvas = new Canvas(Globals.WINDOW_WIDTH, Globals.WINDOW_HEIGHT);
+        gc = canvas.getGraphicsContext2D();
+        uiGroup.getChildren().addAll(canvas);
+        BorderPane pane = (BorderPane) root;
+        pane.setCenter(uiGroup);
+
+        stateController = new StateController(uiGroup);
         currentState = stateController.getCurrentState();
     }
 
@@ -32,15 +53,18 @@ public class GameScene extends Scene {
             @Override
             public void handle(long now) {
 
-                double fps = 1000000.0 / (then - now);
+                double fps = 1000000.0 / (now - then);
+                //logger.info("PFS: " + fps);
 
                 currentState.input();
                 currentState.sound();
                 currentState.update();
-                currentState.render();
+                currentState.render(gc);
 
                 then = now;
             }
         }.start();
     }
+
+
 }
