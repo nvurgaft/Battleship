@@ -13,11 +13,15 @@ import java.util.logging.Logger;
 
 public class StartScreen extends State {
 
-    Logger logger = Logger.getLogger(StartScreen.class.getName());
+    public static Logger logger = Logger.getLogger(StartScreen.class.getName());
 
     private String stateName = "StartScreen";
 
-    Image titleImage;
+    private Image titleImage;
+
+    public StartScreen(StateController stateController) {
+        super(stateController);
+    }
 
     @Override
     public void onCreate(Node ui) {
@@ -28,6 +32,7 @@ public class StartScreen extends State {
         Button startButton = new Button("Start");
         startButton.setOnAction(event -> {
             logger.info("Click");
+            redirectToState("GameSetupScreen");
         });
 
         Group group = (Group) ui;
@@ -51,7 +56,7 @@ public class StartScreen extends State {
 
     @Override
     public String getStateName() {
-        return super.getStateName();
+        return this.stateName;
     }
 
     @Override

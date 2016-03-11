@@ -14,7 +14,13 @@ public class GameSetupScreen extends State {
 
     public static Logger logger = Logger.getLogger(GameSetupScreen.class.getName());
 
+    private String stateName = "GameSetupScreen";
+
     private Board board;
+
+    public GameSetupScreen(StateController stateController) {
+        super(stateController);
+    }
 
     @Override
     protected void onCreate(Node ui) {
@@ -81,5 +87,10 @@ public class GameSetupScreen extends State {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+    }
+
+    @Override
+    public String getStateName() {
+        return this.stateName;
     }
 }

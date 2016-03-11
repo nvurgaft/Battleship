@@ -2,9 +2,14 @@ package states;
 
 import javafx.scene.Node;
 
-public class State implements StateInterface {
+public abstract class State implements StateInterface {
 
     private String stateName = "Default state";
+    protected StateController stateController;
+
+    public State(StateController stateController) {
+        this.stateController = stateController;
+    }
 
     protected void onCreate(Node ui) { }
 
@@ -13,6 +18,10 @@ public class State implements StateInterface {
     protected void onLeave() { }
 
     protected void onDestroy() { }
+
+    public void redirectToState(String stateName) {
+        this.stateController.setCurrentState(stateName);
+    }
 
     public void setStateName(String stateName) {
         this.stateName = stateName;
@@ -26,9 +35,7 @@ public class State implements StateInterface {
     public void input() { }
 
     @Override
-    public void render(Object graphic) {
-
-    }
+    public void render(Object graphic) { }
 
     @Override
     public void sound() { }

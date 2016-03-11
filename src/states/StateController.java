@@ -12,24 +12,27 @@ public class StateController {
 
     private Map<String, State> stateMap;
     private Group group;
-    private State currentState;
+    private State currentState, gameSetupScreen;
 
     public StateController(Group group) {
         stateMap = new HashMap<>();
         this.group = group;
-        currentState = new StartScreen();
+        currentState = new StartScreen(this);
+
+        gameSetupScreen = new GameSetupScreen(this);
 
         currentState.onCreate(group);
         this.stateMap.put(currentState.getStateName(), currentState);
+        this.stateMap.put(gameSetupScreen.getStateName(), gameSetupScreen);
     }
 
     public void addState(String name, State state) {
-        if (name==null || name.isEmpty()) {
+        if (name == null || name.isEmpty()) {
             logger.severe("State name cannot be empty");
             return;
         }
 
-        if (state==null) {
+        if (state == null) {
             logger.severe("State cannot be null");
             return;
         }
@@ -41,7 +44,7 @@ public class StateController {
 
     public void setState(String stateName) {
         this.currentState = stateMap.get(stateName);
-        if (this.currentState==null) {
+        if (this.currentState == null) {
             logger.warning("No valid state name provided");
         }
     }
@@ -53,7 +56,7 @@ public class StateController {
 
     public void setCurrentState(String stateName) {
         currentState.onLeave();
-        this.currentState = this.stateMap.get(stateName);
+        currentState = this.stateMap.get(stateName);
         currentState.onEnter();
     }
 

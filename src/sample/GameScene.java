@@ -7,13 +7,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import states.State;
 import states.StateController;
 
 import java.util.logging.Logger;
-
 
 public class GameScene extends Scene {
 
@@ -52,7 +50,7 @@ public class GameScene extends Scene {
 
             @Override
             public void handle(long now) {
-
+                currentState = stateController.getCurrentState();
                 double fps = 1000000.0 / (now - then);
                 //logger.info("PFS: " + fps);
 
